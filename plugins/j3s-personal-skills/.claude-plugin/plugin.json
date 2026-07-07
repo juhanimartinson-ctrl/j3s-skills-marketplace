@@ -1,0 +1,14 @@
+{
+  "name": "j3s-personal-skills",
+  "description": "Juhani's personal skills: huomenta (daily briefing), outlook-briefing (work mail triage + calendar sync), email-response (drafting in his voice).",
+  "version": "1.0.0",
+  "author": {
+    "name": "Juhani Martinson",
+    "email": "juhani.martinson@gmail.com"
+  },
+  "skills": [
+    "./skills/huomenta",
+    "./skills/outlook-briefing",
+    "./skills/email-response"
+  ]
+}

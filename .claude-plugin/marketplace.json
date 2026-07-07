@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "j3s-skills",
+  "owner": {
+    "name": "Juhani Martinson",
+    "email": "juhani.martinson@gmail.com"
+  },
+  "metadata": {
+    "description": "Juhani's personal Claude marketplace. Wraps external plugins so they install identically in Cowork and Claude Code."
+  },
+  "plugins": [
+    {
+      "name": "mattpocock-skills",
+      "description": "Matt Pocock's engineering & productivity skills: setup-matt-pocock-skills, grill-me, grill-with-docs, tdd, triage, to-prd, to-issues, diagnose, improve-codebase-architecture, prototype, handoff, and more.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/mattpocock/skills.git",
+        "ref": "main"
+      },
+      "homepage": "https://github.com/mattpocock/skills"
+    },
+    {
+      "name": "j3s-personal-skills",
+      "description": "Juhani's own skills: huomenta (daily briefing), outlook-briefing (work mail triage + RunPro calendar sync), email-response (drafting in his voice).",
+      "category": "productivity",
+      "source": "./plugins/j3s-personal-skills"
+    }
+  ]
+}
