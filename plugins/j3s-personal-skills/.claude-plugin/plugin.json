@@ -1,13 +1,12 @@
 {
   "name": "j3s-personal-skills",
-  "description": "Juhani's personal skills: huomenta (daily briefing), outlook-briefing (full morning run), outlook-mail-triage (mail triage + Email DB), outlook-calendar-sync (Outlook→Google sync), email-response (drafting in his voice), graph-engineering (knowledge-graph pipeline + task-graph orchestration, vendored MIT).",
-  "version": "1.2.0",
+  "description": "Juhani's personal skills: outlook-briefing (full morning run), outlook-mail-triage (mail triage + Email DB), outlook-calendar-sync (Outlook→Google sync), email-response (drafting in his voice), graph-engineering (knowledge-graph pipeline + task-graph orchestration, vendored MIT).",
+  "version": "1.3.0",
   "author": {
     "name": "Juhani Martinson",
     "email": "juhani.martinson@gmail.com"
   },
   "skills": [
-    "./skills/huomenta",
     "./skills/outlook-briefing",
     "./skills/outlook-mail-triage",
     "./skills/outlook-calendar-sync",

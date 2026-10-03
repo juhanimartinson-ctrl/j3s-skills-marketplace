@@ -6,7 +6,7 @@ and Claude Code.
 ## Plugins in this marketplace
 
 - **mattpocock-skills** — external reference to `mattpocock/skills` (tracks `main`).
-- **j3s-personal-skills** — vendored in this repo: `huomenta`, `outlook-briefing`,
+- **j3s-personal-skills** — vendored in this repo: `outlook-briefing`,
   `outlook-mail-triage`, `outlook-calendar-sync`, `email-response`, `graph-engineering`.
   Edit these under `plugins/j3s-personal-skills/skills/`.
   - `graph-engineering` is **third-party, vendored unmodified** from

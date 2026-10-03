@@ -22,7 +22,7 @@
     },
     {
       "name": "j3s-personal-skills",
-      "description": "Juhani's own skills: huomenta (daily briefing), outlook-briefing (full morning run), outlook-mail-triage (mail triage + Email DB), outlook-calendar-sync (Outlook→Google sync), email-response (drafting in his voice).",
+      "description": "Juhani's own skills: outlook-briefing (full morning run), outlook-mail-triage (mail triage + Email DB), outlook-calendar-sync (Outlook→Google sync), email-response (drafting in his voice), graph-engineering (knowledge-graph + task-graph guidance, vendored MIT).",
       "category": "productivity",
       "source": "./plugins/j3s-personal-skills"
     }
