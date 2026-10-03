@@ -7,7 +7,13 @@ and Claude Code.
 
 - **mattpocock-skills** — external reference to `mattpocock/skills` (tracks `main`).
 - **j3s-personal-skills** — vendored in this repo: `huomenta`, `outlook-briefing`,
-  `email-response`. Edit these under `plugins/j3s-personal-skills/skills/`.
+  `outlook-mail-triage`, `outlook-calendar-sync`, `email-response`, `graph-engineering`.
+  Edit these under `plugins/j3s-personal-skills/skills/`.
+  - `graph-engineering` is **third-party, vendored unmodified** from
+    [codejunkie99/graph-engineering](https://github.com/codejunkie99/graph-engineering) (MIT,
+    2026-08-03) — its `LICENSE` travels with it. The one local addition is `J3S-LOCAL.md`,
+    which maps the upstream rules onto the Balu harness and states the confidentiality
+    boundary for any knowledge graph built over Runtech material. Read that file first.
 
 ## Why this exists
 

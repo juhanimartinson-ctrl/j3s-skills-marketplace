@@ -22,6 +22,43 @@ an extra. Skip steps only on an explicit partial request: "vain postit" → step
 "vain synkka" → steps 3–4; "tee siitä sivu" / "ei sivua" → only/except step 5 (a page-only run
 reuses the most recent report in the conversation).
 
+## Execution topology — a diamond, not a chain
+
+This skill has been read as a five-step chain. It isn't one. **The mail branch and the calendar
+branch never read each other's output** — triage does not consume calendar events, and the sync does
+not consume the mail. Only the page needs both.
+
+```
+              ┌─ 1 read mail  → 2 triage        ─┐
+   start ─────┤                                  ├──→ 5 page (merge, one owner)
+              └─ 3 read calendar → 4 sync Google ─┘
+```
+
+**Real edges:** 1→2, 3→4, and both branches → 5. **Fake edge:** 2→3. Never wait for the triage to
+finish before touching the calendar because the numbering suggests it.
+
+**But: the Outlook desktop GUI is an exclusive resource.** Steps 1 and 3 both drive the same window
+through computer use, so they *cannot* physically overlap — one mouse, one front app. Be honest
+about this rather than pretending to parallelise: the win in this variant is that step **4** (Google
+Calendar connector, no GUI) and step **2** (classification of already-captured mail, no GUI) are
+pure reasoning/API work that must not block the GUI branch.
+
+Practical order for the computer-use variant:
+1. Take the GUI once: capture the mail (step 1), then switch `cmd+2` and capture the calendar
+   (step 3). **One pass at the machine, both captures done, then release it.**
+2. Off the GUI, run triage (step 2) and the Google sync (step 4) as independent work — issue their
+   tool calls in the same block where the runtime allows it.
+3. Merge into the page (step 5), one owner, only once both have returned.
+
+For a genuinely parallel run with no GUI contention, use **`outlook-briefing-mcp`**, which reads
+Outlook through the local `mac-outlook` MCP server and can fan out both reads at once.
+
+**One writer per file.** The mail branch and the calendar branch never write the same artifact; only
+the merge (step 5) writes the HTML page in `OUTPUTS/`.
+
+**Partial runs** are subgraphs: "vain postit" = the top branch only, "vain synkka" = the bottom
+branch only. Neither needs the other to complete.
+
 ## Hard rules
 
 - Outlook **desktop app only**, via computer use. Never Outlook web, never IMAP.
@@ -148,7 +185,7 @@ the same content:
   alpha soft background for badges.
 - Subtle IntersectionObserver fade-ins only; page must be fully readable with JS disabled.
   No external assets beyond the Google Font. Responsive: grids collapse to one column <720px.
-- Save to `/Users/j3s/Documents/Claude/OUTPUTS/` as
+- Save to `~/J3s/OUTPUTS/` as
   `YYYY-MM-DD-DailyBriefing-Visual-vNN.html` (bump vNN if same-day file exists), then present
   the file.
 

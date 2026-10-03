@@ -19,8 +19,8 @@ skill covers the calendar only. Mail triage lives in `outlook-mail-triage`; the 
 
 ## Calendar memory (ledger) — read this first, every run
 
-Canonical store: `PERSONAL ASSISTANT/DB/calendar.db` (SQLite; sibling of `email.db`). Schema in
-`DB/calendar_schema.sql`. Same sqlite rule as the Email DB: **runs on the Mac, not over the
+Canonical store: `SYSTEM/state/calendar.db` (SQLite; sibling of `email.db`). Schema in
+`SYSTEM/engine/db/calendar_schema.sql`. Same sqlite rule as the Email DB: **runs on the Mac, not over the
 sandbox mount** — in the sandbox `cp` to `/tmp`, edit, `cp` back.
 
 Tables: `calendar_events` (event_key = summary|start_date; source, summary, start/end date, all_day,

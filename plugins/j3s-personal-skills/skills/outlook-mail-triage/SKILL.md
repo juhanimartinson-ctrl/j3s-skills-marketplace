@@ -20,13 +20,13 @@ page lives in `erika-visual-page`.
 
 ## Email DB (memory) — read this first, every run
 
-Canonical store: `PERSONAL ASSISTANT/DB/email.db` (SQLite; sibling of `balu.db`). Schema in
-`DB/outlook_schema.sql`. Query helper: `python3 DB/email_query.py <cmd>` (`stats`, `red`,
+Canonical store: `SYSTEM/state/email.db` (SQLite; sibling of `balu.db`). Schema in
+`SYSTEM/engine/db/outlook_schema.sql`. Query helper: `python3 SYSTEM/engine/db/email_query.py <cmd>` (`stats`, `red`,
 `yellow`, `since <date>`, `waiting`, `search <term>`, `standpoint`). Human index:
-`DB/email_index.md`.
+`SYSTEM/engine/db/email_index.md`.
 
 **sqlite runs on the Mac, never over the sandbox mount** (mount raises "disk I/O error"). In the
-sandbox: `cp DB/email.db /tmp/`, edit `/tmp/email.db`, then `cp` back. Native runs on J3s's Mac
+sandbox: `cp SYSTEM/state/email.db /tmp/`, edit `/tmp/email.db`, then `cp` back. Native runs on J3s's Mac
 are fine.
 
 Tables: `emails` (msg_key = sha1 of sender|subject|received-date; folder, sender, subject,
@@ -35,7 +35,7 @@ ask, deadline, triage, status new|triaged|waiting_on|resolved, first_seen, last_
 `runs` (the standpoint log: run_at, high_water = max(received) seen, new/updated counts).
 
 Each run:
-1. **Read the standpoint:** `python3 DB/email_query.py standpoint` → the high_water timestamp.
+1. **Read the standpoint:** `python3 SYSTEM/engine/db/email_query.py standpoint` → the high_water timestamp.
 2. **Read only what's new:** in Outlook, index every mail **newer than the standpoint**, plus any
    **unread** or **pinned** regardless of date (see Step 1). Don't re-read the whole archive.
 3. **Index before triaging:** insert new rows (dedupe on msg_key — `INSERT OR IGNORE`), refresh
@@ -131,7 +131,7 @@ they matter (overlapping site visits, unanswered invites, workshop closures coll
 
 When Juhani answers a red and now waits on someone else, set that row's `status='waiting_on'`
 instead of dropping it. Each run, re-surface waiting_on items that have gone quiet past a
-reasonable window (`python3 DB/email_query.py waiting`) under a **"⏳ Odottaa vastausta"** section
+reasonable window (`python3 SYSTEM/engine/db/email_query.py waiting`) under a **"⏳ Odottaa vastausta"** section
 so commitments don't die in silence. Mark `status='resolved'` once closed.
 
 **Concur is out of scope** — expense/HR approvals are handled by Juhani by hand; don't try to read

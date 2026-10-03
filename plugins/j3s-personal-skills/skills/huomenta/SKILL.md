@@ -19,6 +19,43 @@ The output is opinionated, tight, and ends with one clear "do this first" recomm
 
 ---
 
+## Execution topology — run the four pillars in PARALLEL
+
+**The four pillars are independent. None of them reads another one's output.** Email triage never
+consumes the calendar; the crypto pulse never consumes the industry scan. Running them one after
+another is a fake edge — sequence with no data flowing through it — and it costs wall-clock for
+nothing.
+
+```
+                  ┌─ Pillar 1  Email     ─┐
+   start ─────────┼─ Pillar 2  Calendar  ─┼──→ merge ──→ "What needs you today" ──→ My take
+                  ├─ Pillar 3  Crypto    ─┤   (one owner)
+                  └─ Pillar 4  Industry  ─┘
+```
+
+**How to run it:**
+
+1. **Fan out.** Issue the tool calls for all four pillars **in the same tool-call block**, so they
+   execute concurrently. Inside Pillar 4, the 4–5 web searches are likewise independent of each
+   other — issue them in one block too, not one at a time.
+2. **One writer per branch.** If a pillar writes anything to disk, it writes its own file. Nothing
+   writes a shared file while another branch is running.
+3. **One owner of the merge.** Only after all four have returned is the briefing assembled. The
+   merge is a single step by a single owner: it is the only place where cross-pillar judgement
+   happens, and it is what produces "⚡ What needs you today" and "My take".
+
+**The only real edges in this skill** are the two into the merge: the top bar and the closing take
+genuinely need all four pillars in hand. Everything upstream of them is parallel.
+
+**Do not fan out inside a pillar's judgement.** The triage of a single mail thread, or the scoring
+of a single industry item, is sequential reasoning that needs the whole context — keep it in one
+place. Split the gathering, not the thinking.
+
+**Partial runs** simply drop branches from the fan-out. A one-pillar run is a one-node graph; skip
+the merge and report that pillar directly.
+
+---
+
 ## Pillar 1 — Email (action items only)
 
 Goal: surface what needs Juhani's action today. Not a recap, not an inbox tour. Action triage.
@@ -184,9 +221,10 @@ Rate each finding on three dimensions:
 
 ---
 
-## Briefing assembly
+## Briefing assembly (the merge — one owner, after all branches return)
 
-When all pillars are run, assemble in this order:
+This is the **only** node that sees all four pillars. Do not start it while a branch is still
+running, and do not let a branch write into it. Assemble in this order:
 
 ```
 # Huomenta — [Day], [Date]
@@ -224,6 +262,7 @@ Want me to: draft a reply to any of the action emails, dig deeper on a specific 
 ## Rules
 
 - Always include today's date in the header.
+- **Run the four pillars in parallel, merge once** (see *Execution topology*). A pillar that waits on another pillar is a fake edge.
 - Be opinionated. Tell Juhani what to do, don't lay out neutral options.
 - Verify facts via web search. If a search result is ambiguous, note the uncertainty — don't guess.
 - Do not pad. If a pillar has nothing material, say so in one line and move on.
@@ -235,4 +274,4 @@ Want me to: draft a reply to any of the action emails, dig deeper on a specific 
 - The "What needs you today" bar at the top is the most important section. If Juhani only reads three lines, those three lines should be enough.
 - For Outlook work email and calendar: respect the desktop-app-only constraint. Do NOT use the Microsoft 365 MCP. If the runtime can't access the desktop app, say so plainly and ask Juhani to paste content — never silently fall back.
 - Cointelegraph items must be marked `[unconfirmed]` if not corroborated by CoinDesk or The Block.
-- Files Juhani might want saved (the briefing as a Word doc, a memo draft, etc.) go to `/Users/j3s/Documents/Claude/OUTPUTS/`.
+- Files Juhani might want saved (the briefing as a Word doc, a memo draft, etc.) go to `~/J3s/OUTPUTS/`.
